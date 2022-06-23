@@ -30,8 +30,7 @@ public class CourseController {
     @Resource
     private ICourseService courseService;
 
-    @Resource
-    private IUserService userService;
+
 
     // 新增或者更新
     @PostMapping

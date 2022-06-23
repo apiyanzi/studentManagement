@@ -91,7 +91,6 @@ public class FileController {
     @PostMapping("/update")
     public Result update(@RequestBody Files files) {
         fileMapper.updateById(files);
-        flushRedis(Constants.FILES_KEY);
         return Result.success();
     }
 
@@ -107,7 +106,6 @@ public class FileController {
         Files files = fileMapper.selectById(id);
         files.setIsDelete(true);
         fileMapper.updateById(files);
-        flushRedis(Constants.FILES_KEY);
         return Result.success();
     }
 
@@ -146,14 +144,6 @@ public class FileController {
         return Result.success(fileMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper));
     }
 
-    // 设置缓存
-    private void setCache(String key, String value) {
-        stringRedisTemplate.opsForValue().set(key, value);
-    }
 
-    // 删除缓存
-    private void flushRedis(String key) {
-        stringRedisTemplate.delete(key);
-    }
 
 }
